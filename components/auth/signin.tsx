@@ -10,7 +10,7 @@ import { SignInRes } from "@/services/types"
 export const SignInForm = () => {
     const { loading, data, error, makeRequest } = useApiRequest<SignInRes, string>();
 
-    const formRef = useRef<HTMLFormElement | null>(null);
+    const formRef = useRef<HTMLFormElement | null>(null)
 
     const [form, setForm] = useState({
         email : "",
