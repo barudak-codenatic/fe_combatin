@@ -1,9 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { CustomInput } from "../common/input"
-import { CustomButton } from "../common/button"
 import { useState } from "react"
+import { CustomButton, CustomInput } from "../common"
 
 export const SignUpForm = () => {
     const [form, setForm] = useState({
@@ -32,7 +31,6 @@ export const SignUpForm = () => {
                 type="password" 
                 title="Password" 
                 handleChange={(e) => setForm({...form, password : e.target.value})}/>
-            <Link className="text-blue-500 hover:text-blue-600 text-end" href={`/forgot-password`}>lupa password?</Link>
             <CustomButton 
                 title="Daftar"
                 type="submit"

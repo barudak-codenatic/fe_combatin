@@ -1,7 +1,7 @@
-import { SignUpForm } from "@/components/auth/index"
+import { SignInForm } from "@/components/auth/index"
 import { Logo } from "@/components/common/index"
 
-const SignUpPage = () => { 
+const SignInPage = () => { 
     return (
         <div className="grid grid-cols-2 h-screen justify-items-center items-center">
             <div>
@@ -9,13 +9,13 @@ const SignUpPage = () => {
             </div>
             <div className="bg-red-200 w-full h-full justify-center items-center flex">
                 <div className="w-[20rem] rounded-xl">
-                    <h1 className="text-center font-bold text-xl">Buat Akun</h1>
+                    <h1 className="text-center font-bold text-xl">Masuk</h1>
                     <Logo otherStyle="mx-auto"/>
-                    <SignUpForm/>
+                    <SignInForm/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default SignUpPage
+export default SignInPage
