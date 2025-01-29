@@ -2,13 +2,16 @@
 
 import Link from "next/link"
 import { FormEvent, useRef, useState } from "react"
-import { CustomButton, CustomInput } from "../common"
+import { CustomButton, CustomInput, MessageRes } from "../common"
 import apiClient from "@/services/api/apiClient"
 import useApiRequest from "@/hooks/useRequest"
 import { SignInRes } from "@/services/types"
+import { useRouter } from "next/navigation"
 
 export const SignInForm = () => {
-    const { loading, data, error, makeRequest } = useApiRequest<SignInRes, string>();
+    const { loading, error, makeRequest } = useApiRequest<SignInRes, string>();
+
+    const router = useRouter()
 
     const formRef = useRef<HTMLFormElement | null>(null)
 
@@ -20,14 +23,16 @@ export const SignInForm = () => {
     const handleSubmit = async (e:FormEvent) => { 
         e.preventDefault()
         try {
-            await makeRequest(() => apiClient.post('/auth/signin', { ...form }));
+            const data = await makeRequest(() => apiClient.post('/auth/signin', form));
             if(data) {
                 localStorage.setItem('accessToken', data.accessToken)
                 localStorage.setItem('refreshToken', data.refreshToken)
             }
             formRef.current?.reset()
+            await router.push('/signin')
         } catch (err) {
             formRef.current?.reset()
+            console.log(err)
         }
      }
 
@@ -36,20 +41,19 @@ export const SignInForm = () => {
             <CustomInput 
                 type="email" 
                 title="Email" 
-                handleChange={(e) => setForm({...form, email : e.target.value})}
+                handleChange={(e) => {setForm({...form, email : e.target.value})}}
             />
             <CustomInput 
                 type="password" 
                 title="Password"
                 handleChange={(e) => setForm({...form, password : e.target.value})}/>
-            <small className="text-red-500 text-end">{error}</small>
+            <MessageRes error={error}/>
             <Link className="text-blue-500 hover:text-blue-600 text-end" href={`/forgot-password`}>lupa password?</Link>
-            {loading?
-            <p>loading</p>:
             <CustomButton 
                 title="Daftar"
                 type="submit"
-            />}
+                loading={loading}
+            />
             <span className="text-center">
                 Belum punya akun? <Link className="text-blue-500 hover:text-blue-600" href={`/signup`}>Daftar</Link>
             </span>

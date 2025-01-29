@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AxiosResponse } from 'axios';
 
-const useApiRequest = <TData, TError = string[]>() => {
+const useApiRequest = <TData, TError>() => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TData | null>(null);
   const [error, setError] = useState<TError| null>(null);
@@ -17,7 +17,7 @@ const useApiRequest = <TData, TError = string[]>() => {
       return response.data; 
     } catch (err: any) {
       setError(err.response?.data?.message || 'An error occurred');
-      throw err; 
+      throw err.response?.data?.message; 
     } finally {
       setLoading(false);
     }

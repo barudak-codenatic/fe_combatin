@@ -1,11 +1,10 @@
 import { content } from "@/content"
 import { Logo } from "./logo"
 import Link from "next/link"
-import { CustomButton } from "./button"
 
 export const Navbar = () => {
     return (
-        <header className="flex items-center justify-between fixed top-0 left-0 right-0 bg-gray-100 px-7">
+        <header className="flex items-center justify-between fixed top-0 left-0 right-0 bg-gray-100 px-7 z-10">
             <Logo/>
             <nav>
                 {content.navLinks.map(link=>(
@@ -19,3 +18,14 @@ export const Navbar = () => {
         </header>
     ) 
  }
+
+export const NavbarClient = () => {
+    return (
+        <header className="flex items-center justify-between fixed top-0 left-0 right-0 bg-gray-100 px-7 z-10">
+            <Logo/>
+            <div className="flex gap-2">
+                <p>Profile</p>
+            </div>
+        </header>
+    )
+}

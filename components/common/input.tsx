@@ -8,13 +8,15 @@ interface inputType extends React.InputHTMLAttributes<HTMLInputElement> {
     type? : string;
     handleChange? : (e : any) => void;
     msg? : string[] | null;
+    required? : boolean;
 }
 
 export const CustomInput = ({
     title,
     type="text",
     msg,
-    handleChange
+    handleChange,
+    required=true
 } : inputType) => {
 
     const [isHide, setHide] = useState(true)
@@ -30,6 +32,7 @@ export const CustomInput = ({
                         type={isHide?"password":"text"}
                         className="block flex-1 focus:outline-none"
                         onChange={handleChange}
+                        required={required}
                     />
                     <button type="button" onClick={()=>setHide(!isHide)}>
                         {isHide?<FaRegEyeSlash size={20}/>:<FaRegEye size={20}/>}
@@ -49,6 +52,7 @@ export const CustomInput = ({
                 type={type}
                 className="w-full outline-2 outline-gray-300 focus:outline-black outline rounded-md block p-2"
                 onChange={handleChange}
+                required={required}
             />
             <small className="text-red-500">{msg??' '}</small>
         </div>
