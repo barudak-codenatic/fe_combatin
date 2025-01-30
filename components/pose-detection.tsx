@@ -2,11 +2,11 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 
-const GAME_DURATION = 60; // 60 seconds
-const MIN_GAP = 300; // Minimum vertical gap between bubbles
-const MAX_GAP = 700; // Maximum vertical gap between bubbles
-const INITIAL_SPEED = 3; // Starting speed
-const MAX_SPEED = 5; // Maximum speed at the end
+const GAME_DURATION = 60; 
+const MIN_GAP = 300; 
+const MAX_GAP = 700; 
+const INITIAL_SPEED = 3; 
+const MAX_SPEED = 5; 
 
 const PunchTrainingGame = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
