@@ -3,9 +3,9 @@
 import Link from "next/link"
 import { FormEvent, useRef, useState } from "react"
 import { CustomButton, CustomInput, MessageRes } from "../common"
-import apiClient from "@/services/api/apiClient"
+import apiClient from "@/services/apiService"
 import useApiRequest from "@/hooks/useRequest"
-import { SignInRes } from "@/services/types"
+import { SignInRes } from "@/types"
 import { useRouter } from "next/navigation"
 
 export const SignInForm = () => {

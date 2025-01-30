@@ -5,8 +5,8 @@ import { FormEvent, useRef, useState } from "react"
 import { CustomButton, CustomInput, MessageRes } from "../common"
 import useApiRequest from "@/hooks/useRequest"
 import { useRouter } from "next/navigation"
-import apiClient from "@/services/api/apiClient"
-import { User } from "@/services/types"
+import apiClient from "@/services/apiService"
+import { User } from "@/types"
 
 export const SignUpForm = () => {
     const { loading, error, makeRequest } = useApiRequest<User, string>();
