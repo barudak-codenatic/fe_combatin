@@ -41,14 +41,17 @@ export const SignUpForm = () => {
             <CustomInput 
                 title="Nama" 
                 handleChange={(e) => setForm({...form, name : e.target.value})}
+                value={form.name}
             />
             <CustomInput 
                 type="email" 
                 title="Email" 
                 handleChange={(e) => setForm({...form, email : e.target.value})}
+                value={form.email}
             />
             <CustomInput 
-                type="password" 
+                type="password"
+                value={form.password} 
                 title="Password" 
                 handleChange={(e) => setForm({...form, password : e.target.value})}/>
             <MessageRes error={error}/>
