@@ -29,7 +29,7 @@ export const SignInForm = () => {
                 localStorage.setItem('refreshToken', data.refreshToken)
             }
             formRef.current?.reset()
-            await router.push('/signin')
+            await router.push('/tantangan')
         } catch (err) {
             formRef.current?.reset()
             console.log(err)
@@ -40,17 +40,19 @@ export const SignInForm = () => {
         <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3">
             <CustomInput 
                 type="email" 
-                title="Email" 
+                title="Email"
+                value={form.email} 
                 handleChange={(e) => {setForm({...form, email : e.target.value})}}
             />
             <CustomInput 
                 type="password" 
                 title="Password"
+                value={form.password}
                 handleChange={(e) => setForm({...form, password : e.target.value})}/>
             <MessageRes error={error}/>
             <Link className="text-blue-500 hover:text-blue-600 text-end" href={`/forgot-password`}>lupa password?</Link>
             <CustomButton 
-                title="Daftar"
+                title="Masuk"
                 type="submit"
                 loading={loading}
             />

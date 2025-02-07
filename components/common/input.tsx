@@ -9,6 +9,7 @@ interface inputType extends React.InputHTMLAttributes<HTMLInputElement> {
     handleChange? : (e : any) => void;
     msg? : string[] | null;
     required? : boolean;
+    value? : string;
 }
 
 export const CustomInput = ({
@@ -16,7 +17,8 @@ export const CustomInput = ({
     type="text",
     msg,
     handleChange,
-    required=true
+    required=true,
+    value=''
 } : inputType) => {
 
     const [isHide, setHide] = useState(true)
@@ -53,6 +55,7 @@ export const CustomInput = ({
                 className="w-full outline-2 outline-gray-300 focus:outline-black outline rounded-md block p-2"
                 onChange={handleChange}
                 required={required}
+                value={value}
             />
             <small className="text-red-500">{msg??' '}</small>
         </div>

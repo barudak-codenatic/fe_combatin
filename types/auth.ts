@@ -15,3 +15,4 @@ export interface User extends TimeStamp {
     name : string;
     verified_at : string | null;
 }
+
