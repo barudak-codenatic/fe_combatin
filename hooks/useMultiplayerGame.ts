@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import useAuthStore from './authStore';
 
 interface Player {
   id: string;
@@ -16,7 +17,7 @@ interface GameState {
   challengerId: string | null;
 }
 
-export const useMultiplayerGame = (name: string) => {
+export const useMultiplayerGame = () => {
   const [gameState, setGameState] = useState<GameState>({
     roomId: null,
     players: [],
@@ -29,11 +30,14 @@ export const useMultiplayerGame = (name: string) => {
   const socketRef = useRef<Socket>();
   const [playerId, setPlayerId] = useState<string | null>(null);
 
+  const {userId, name} = useAuthStore()
+
   useEffect(() => {
-    socketRef.current = io('http://localhost:3001');
+    socketRef.current = io(process.env.NEXT_PUBLIC_API_BASE_URL);
+    // socketRef.current = io('http://localhost:3001');
     
     // Register player
-    socketRef.current.emit('register', { name, userId : localStorage.getItem('userId') });
+    socketRef.current.emit('register', { name, userId });
 
     // Handle registration confirmation
     socketRef.current.on('registered', (data: { playerId: string }) => {

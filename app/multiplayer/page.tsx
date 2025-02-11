@@ -3,8 +3,7 @@ import { MultiplayerBoxingGame } from "@/components/game/multiplayer"
 
 
 const MultiplayerPage = () => { 
-    const name = localStorage.getItem('name')
-    return <MultiplayerBoxingGame name={name}/>
+    return <MultiplayerBoxingGame/>
  }
 
 export default MultiplayerPage
