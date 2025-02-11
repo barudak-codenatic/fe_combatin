@@ -13,7 +13,7 @@ const BoxingTrainingGame: React.FC<{ gameConfig: GameConfig }> = ({ gameConfig }
     const audioService = useRef<AudioService>(new AudioService());
     const bubbleRef = useRef<Bubble[]>([]);
     const gameStartTimeRef = useRef<number>(0);
-    const timerRef = useRef<NodeJS.Timeout>();
+    const timerRef = useRef<any>(0);
 
     const {
         gameState,

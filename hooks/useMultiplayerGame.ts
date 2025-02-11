@@ -27,7 +27,7 @@ export const useMultiplayerGame = () => {
     challengerId: null,
   });
   
-  const socketRef = useRef<Socket>();
+  const socketRef = useRef<Socket>(null);
   const [playerId, setPlayerId] = useState<string | null>(null);
 
   const {userId, name} = useAuthStore()
