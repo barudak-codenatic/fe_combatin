@@ -1,7 +1,7 @@
 import { useRef, useCallback } from 'react';
 
 export const usePoseDetection = (
-    videoRef: React.RefObject<HTMLVideoElement>,
+    videoRef: any,
     onResults: (results: any) => void
 ) => {
     const cameraRef = useRef<any>(null);

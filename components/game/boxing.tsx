@@ -183,7 +183,8 @@ const BoxingTrainingGame: React.FC<{ gameConfig: GameConfig }> = ({ gameConfig }
         
         // Draw progress circles
         gameConfig.sequence.forEach((move, index) => {
-            const x = (ctx.canvas.width / (gameConfig.sequence.length + 1)) * (index + 1);
+            const sequenceLength = (gameConfig.sequence?.length ?? 0) as number
+            const x = (ctx.canvas.width / (sequenceLength + 1)) * (index + 1);
             const y = 100;
             ctx.beginPath();
             ctx.arc(x, y, 20, 0, Math.PI * 2);
