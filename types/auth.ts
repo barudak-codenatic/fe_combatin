@@ -6,6 +6,9 @@ export interface RefreshToken {
 
 export interface SignInRes extends RefreshToken {
     accessToken : string;
+    email : string;
+    userId : string;
+    name : string;
 }
 
 export interface User extends TimeStamp {

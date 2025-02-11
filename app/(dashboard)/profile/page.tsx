@@ -44,6 +44,7 @@ const ProfilePage = () => {
             img_url: data.data.img_url || "/profile.jpg",
           });
         }
+        console.log(data)
       }, [data]);
 
     const updateProfile = async () => { 

@@ -7,9 +7,12 @@ import apiClient from "@/services/apiService"
 import useApiRequest from "@/hooks/useRequest"
 import { SignInRes } from "@/types"
 import { useRouter } from "next/navigation"
+import useAuthStore from "@/hooks/authStore"
 
 export const SignInForm = () => {
     const { loading, error, makeRequest } = useApiRequest<SignInRes, string>();
+
+    const { setUser } = useAuthStore()
 
     const router = useRouter()
 
@@ -24,9 +27,9 @@ export const SignInForm = () => {
         e.preventDefault()
         try {
             const data = await makeRequest(() => apiClient.post('/auth/signin', form));
+            console.log(data)
             if(data) {
-                localStorage.setItem('accessToken', data.accessToken)
-                localStorage.setItem('refreshToken', data.refreshToken)
+                setUser({accessToken : data.accessToken, refreshToken : data.accessToken, name : data.name, email : data.email, userId : data.userId})
             }
             formRef.current?.reset()
             await router.push('/tantangan')
