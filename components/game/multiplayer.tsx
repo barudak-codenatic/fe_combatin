@@ -1,11 +1,7 @@
 import { useMultiplayerGame } from '@/hooks/useMultiplayerGame';
 import BoxingTrainingGame from './boxing';
 
-interface Props {
-  name: string;
-}
-
-export const MultiplayerBoxingGame: React.FC<Props> = ({ name }) => {
+export const MultiplayerBoxingGame: React.FC = ({ }) => {
   const {
     gameState,
     playerId,
@@ -13,9 +9,7 @@ export const MultiplayerBoxingGame: React.FC<Props> = ({ name }) => {
     acceptChallenge,
     sendGameUpdate,
     endGame,
-  } = useMultiplayerGame(name);
-
-  console.log(gameState)
+  } = useMultiplayerGame();
 
   return (
     <div className="container mx-auto p-4">

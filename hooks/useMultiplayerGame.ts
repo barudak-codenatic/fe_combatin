@@ -5,7 +5,7 @@ import useAuthStore from './authStore';
 
 interface Player {
   id: string;
-  username: string;
+  name: string;
 }
 
 interface GameState {
