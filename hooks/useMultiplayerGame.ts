@@ -32,6 +32,11 @@ export const useMultiplayerGame = () => {
 
   const {userId, name} = useAuthStore()
 
+  useEffect(()=>{
+    console.log(playerId)
+    console.log(gameState)
+  },[gameState, playerId])
+
   useEffect(() => {
     socketRef.current = io(process.env.NEXT_PUBLIC_API_BASE_URL);
     // socketRef.current = io('http://localhost:3001');
