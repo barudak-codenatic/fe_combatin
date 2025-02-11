@@ -11,10 +11,10 @@ export class AudioService {
         window.speechSynthesis.speak(this.speechSynth);
     }
 
-    playSuccess() {
-        const audio = new Audio('/success-sound.mp3');
-        audio.play();
-    }
+    // playSuccess() {
+    //     const audio = new Audio('/success-sound.mp3');
+    //     audio.play();
+    // }
 
     cleanup() {
         window.speechSynthesis.cancel();

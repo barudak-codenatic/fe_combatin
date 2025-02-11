@@ -85,7 +85,7 @@ const BoxingTrainingGame: React.FC<{ gameConfig: GameConfig }> = ({ gameConfig }
             !completedMovesRef.current.has(sequenceIndexRef.current)) {
             
             completedMovesRef.current.add(sequenceIndexRef.current);
-            audioService.current.playSuccess();
+            // audioService.current.playSuccess();
             
             const isLastMove = sequenceIndexRef.current === gameConfig.sequence.length - 1;
             
@@ -120,7 +120,7 @@ const BoxingTrainingGame: React.FC<{ gameConfig: GameConfig }> = ({ gameConfig }
                     canvasRef.current!.height
                 )) {
                 bubble.active = false;
-                audioService.current.playSuccess();
+                // audioService.current.playSuccess();
                 setGameState(prev => ({ ...prev, score: prev.score + 10 }));
             }
         });
