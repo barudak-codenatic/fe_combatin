@@ -2,7 +2,13 @@ export class AudioService {
     private speechSynth: SpeechSynthesisUtterance;
     
     constructor() {
-        this.speechSynth = new SpeechSynthesisUtterance();
+        // Check if window and speechSynthesis are available
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            this.speechSynth = new SpeechSynthesisUtterance();
+        } else {
+            // Handle case when speech synthesis is not available (e.g., during SSR)
+            this.speechSynth = null as any;
+        }
     }
 
     speak(text: string) {
