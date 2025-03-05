@@ -11,29 +11,59 @@ export class PunchDetectionService {
         const rightElbow = landmarks[14];
         const leftWrist = landmarks[15];
         const rightWrist = landmarks[16];
+        const leftHip = landmarks[23];
+        const rightHip = landmarks[24];
 
-        const isJab = (shoulder: any, elbow: any, wrist: any) => {
-            const elbowAngle = calculateAngle(shoulder, elbow, wrist);
-            return Math.abs(elbowAngle - 180) < 30 && 
-                   wrist.y < shoulder.y;
-        };
+        // Deteksi untuk tangan kiri
+        const leftPunch = this.detectPunchType(leftShoulder, rightShoulder, leftElbow, leftWrist, leftHip);
+        if (leftPunch) return leftPunch;
 
-        const isUppercut = (shoulder: any, elbow: any, wrist: any) => {
-            const elbowAngle = calculateAngle(shoulder, elbow, wrist);
-            return Math.abs(elbowAngle - 90) < 30 && 
-                   wrist.y < shoulder.y;
-        };
+        // Deteksi untuk tangan kanan
+        const rightPunch = this.detectPunchType(rightShoulder, leftShoulder, rightElbow, rightWrist, rightHip);
+        if (rightPunch) return rightPunch;
 
-        if (isJab(leftShoulder, leftElbow, leftWrist)) {
-            return 'Left Jab';
-        } else if (isJab(rightShoulder, rightElbow, rightWrist)) {
-            return 'Right Jab';
-        } else if (isUppercut(leftShoulder, leftElbow, leftWrist)) {
-            return 'Left Uppercut';
-        } else if (isUppercut(rightShoulder, rightElbow, rightWrist)) {
-            return 'Right Uppercut';
+        return '';
+    }
+
+    private static detectPunchType(
+        shoulder: any, 
+        oppositeShoulder: any, 
+        elbow: any, 
+        wrist: any, 
+        hip: any
+    ): PunchType | '' {
+        // Hitung sudut siku (elbow angle)
+        const elbowAngle = calculateAngle(shoulder, elbow, wrist);
+        
+        // Periksa posisi relatif pergelangan tangan terhadap garis tengah tubuh
+        const isCrossingMidline = wrist.x > oppositeShoulder.x;
+        
+        // Periksa rotasi bahu dan pinggul
+        const shoulderRotation = Math.abs(shoulder.z - oppositeShoulder.z);
+        
+        // Deteksi UPPERCUT - Disederhanakan
+        // - Siku membentuk sudut sekitar 90° (diberikan toleransi lebih besar)
+        // - Pergelangan tangan berada lebih rendah dari siku atau bergerak ke atas
+        // - Tidak perlu memeriksa lutut untuk menyederhanakan deteksi
+        if (elbowAngle <= 90 && wrist.y < shoulder.y) {
+            return 'uppercut';
         }
-
+        
+        // Deteksi JAB
+        if (elbowAngle > 160 && !isCrossingMidline && shoulderRotation < 0.2) {
+            return 'jab';
+        }
+        
+        // Deteksi CROSS
+        if (elbowAngle > 160 && isCrossingMidline && shoulderRotation >= 0.2) {
+            return 'cross';
+        }
+        
+        // Deteksi HOOK
+        if (elbowAngle >= 70 && elbowAngle <= 110 && shoulderRotation >= 0.3 && !isCrossingMidline) {
+            return 'hook';
+        }
+        
         return '';
     }
 }

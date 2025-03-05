@@ -5,10 +5,10 @@ const TebakPage = () => {
     const sequenceConfig: GameConfig = {
         mode: 'sequence',
         sequence: [
-            'Left Jab',
-            'Right Uppercut',
-            'Left Uppercut',
-            'Right Jab'
+            'jab',
+            'cross',
+            'hook',
+            'uppercut'
         ]
     };
 

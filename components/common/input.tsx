@@ -27,7 +27,7 @@ export const CustomInput = ({
         return (
             <div>
                 <label htmlFor={title}>{title}</label>
-                <div className="flex w-full outline-2 p-2 bg-white gap-2 outline-gray-300 focus:outline-black outline rounded-md ">
+                <div className="flex w-full outline-2 p-2 bg-white gap-2 outline-gray-300 focus:outline-black outline rounded-sm ">
                     <input 
                         id={title} 
                         placeholder={`Masukan ${title}`} 
