@@ -32,7 +32,7 @@ export const SignInForm = () => {
                 setUser({accessToken : data.accessToken, refreshToken : data.accessToken, name : data.name, email : data.email, userId : data.userId})
             }
             formRef.current?.reset()
-            await router.push('/tantangan')
+            await router.push('/module')
         } catch (err) {
             formRef.current?.reset()
             console.log(err)

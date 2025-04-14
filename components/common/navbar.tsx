@@ -3,6 +3,7 @@ import { Logo } from "./logo"
 import Link from "next/link"
 import { ProfileDropdown } from "./profile"
 import { SearchGlobal } from "./search"
+import { NewDropdown } from "../admin/dropdown"
 
 export const Navbar = () => {
     return (
@@ -26,7 +27,8 @@ export const NavbarClient = () => {
         <header className="flex items-center justify-between fixed top-0 left-0 right-0 bg-gray-100 px-7 z-10 py-1">
             <Logo/>
             <SearchGlobal/>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
+                <NewDropdown/>
                 <ProfileDropdown/>
             </div>
         </header>
