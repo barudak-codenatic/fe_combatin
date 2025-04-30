@@ -1,0 +1,59 @@
+import { Material, Test } from "@/types";
+import { PiBoxingGloveFill } from "react-icons/pi";
+import Link from "next/link";
+import { FaBook } from "react-icons/fa6";
+import { DropDown } from "../common";
+import { IoMdMore } from "react-icons/io";
+import { FaRegTrashAlt } from "react-icons/fa";
+import useApiRequest from "@/hooks/useRequest";
+import apiClient from "@/services/apiService";
+
+interface CardLearningProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: Material | Test;
+  href: string;
+  type: 'materials' | 'test';
+}
+
+export const CardLearning = ({
+  data,
+  href,
+  type,
+  ...props
+}: CardLearningProps) => {
+    const { loading : postLoading, error : postError, makeRequest, data : postData } = useApiRequest<{message : string}, string>();
+
+    const handleDelete = async (id : string|undefined) => { 
+        try {
+            await makeRequest(() => apiClient.delete(`/${type}/${id}`));
+        } catch (err) {
+            console.log(err)
+        }
+     }
+
+    return (
+        <div 
+        {...props}
+        className="relative w-full flex p-4 border-2 border-gray-400 rounded-lg"
+        >
+        <Link href={href} className={`flex items-center gap-2 w-full${props.className ?? ""}`}>
+            {type === 'materials' ? (
+            <FaBook size={25} />
+            ) : (
+            <PiBoxingGloveFill size={25} />
+            )}
+            <h4 className="text-nowrap truncate max-w-[80%]">{data.title}</h4>
+        </Link>
+
+        <DropDown 
+            trigger={
+            <IoMdMore className="w-6 h-6 cursor-pointer absolute inline-block right-0 top-0" />
+            }
+        >
+            <button onClick={()=>handleDelete(data.id)} className="flex w-full gap-2 hover:bg-gray-200 px-3 py-2 items-center">
+                <FaRegTrashAlt color="red" size={20} />
+                <p className="text-red-500">Delete</p>
+            </button>
+        </DropDown>
+        </div>
+    );
+};

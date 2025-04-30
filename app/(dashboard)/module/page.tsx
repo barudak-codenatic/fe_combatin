@@ -23,6 +23,7 @@ const ModulesPage = () => {
                             alt={e.name}
                             width={200}
                             height={200}
+                            className="h-full w-full rounded-lg"
                         />:<div className="bg-red-400 w-full h-full rounded-lg"/>}
                         <div>
                             <h2>{e.name}</h2>

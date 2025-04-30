@@ -1,4 +1,4 @@
-import { NavbarClient, SidebarClient } from "@/components/common"
+import { GlobalModals, NavbarClient, SidebarClient } from "@/components/common"
 
 const DashboardLayout = ({ children } : { children : React.ReactNode }) => { 
     return (
@@ -6,6 +6,7 @@ const DashboardLayout = ({ children } : { children : React.ReactNode }) => {
             <NavbarClient/>
             {/* <SidebarClient/> */}
             {children}
+            <GlobalModals/>
         </>
     )
  }

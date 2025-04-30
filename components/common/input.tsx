@@ -45,6 +45,23 @@ export const CustomInput = ({
         )
     }
 
+    if(type==='area') {
+        return (
+            <div>
+                <label htmlFor={title}>{title}</label>
+                <textarea 
+                    id={title} 
+                    placeholder={`Masukan ${title}`} 
+                    className="w-full outline-2 outline-gray-300 focus:outline-black outline rounded-md block p-2"
+                    onChange={handleChange}
+                    required={required}
+                    value={value}
+                />
+                <small className="text-red-500">{msg??' '}</small>
+            </div>
+        )
+    }
+
     return (
         <div>
             <label htmlFor={title}>{title}</label>
@@ -55,7 +72,6 @@ export const CustomInput = ({
                 className="w-full outline-2 outline-gray-300 focus:outline-black outline rounded-md block p-2"
                 onChange={handleChange}
                 required={required}
-                value={value}
             />
             <small className="text-red-500">{msg??' '}</small>
         </div>

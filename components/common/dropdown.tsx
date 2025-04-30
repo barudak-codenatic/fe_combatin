@@ -12,17 +12,22 @@ export const DropDown = ({ trigger, children, otherStyles='w-40 -translate-x-24'
     const dropdownRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        const handleClickOutside = (event:any) => {
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsOpen(false);
-          }
-        };
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          dropdownRef.current &&
+          event.target instanceof Node && 
+          !dropdownRef.current.contains(event.target)
+        ) {
+          setIsOpen(false);
+        }
+      };
     
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
-        };
-      }, []);
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+    
 
 
     return (

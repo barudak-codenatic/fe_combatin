@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ProfileDropdown } from "./profile"
 import { SearchGlobal } from "./search"
 import { NewDropdown } from "../admin/dropdown"
+import { ChatbotLink } from "../chatbot/logo-chat"
 
 export const Navbar = () => {
     return (
@@ -28,6 +29,7 @@ export const NavbarClient = () => {
             <Logo/>
             <SearchGlobal/>
             <div className="flex gap-2 items-center">
+                <ChatbotLink/>
                 <NewDropdown/>
                 <ProfileDropdown/>
             </div>

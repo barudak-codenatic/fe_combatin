@@ -9,6 +9,7 @@ export interface SignInRes extends RefreshToken {
     email : string;
     userId : string;
     name : string;
+    userRole : 'ADMIN'|'STUDENT'
 }
 
 export interface User extends TimeStamp {

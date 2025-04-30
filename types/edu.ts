@@ -9,6 +9,16 @@ export interface Modules extends TimeStamp {
 
 export interface Material extends TimeStamp {
     title : string;
+    content : string;
+    moduleId : string;
+    id : string;
+}
+
+export interface Test extends TimeStamp {
+    title : string;
+    description : string;
+    moduleId : string;
+    config : string[];
     id : string;
 }
 
@@ -16,4 +26,3 @@ export interface Module extends Modules {
     materials : Material[];
     test : Material[];
 }
-
