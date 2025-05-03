@@ -12,6 +12,9 @@ export interface Material extends TimeStamp {
     content : string;
     moduleId : string;
     id : string;
+    module : {
+        name : string
+    }
 }
 
 export interface Test extends TimeStamp {

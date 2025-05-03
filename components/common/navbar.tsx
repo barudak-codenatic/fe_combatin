@@ -26,7 +26,9 @@ export const Navbar = () => {
 export const NavbarClient = () => {
     return (
         <header className="flex items-center justify-between fixed top-0 left-0 right-0 bg-gray-100 px-7 z-10 py-1">
-            <Logo/>
+            <Link href={`/`}>
+                <Logo/>
+            </Link>
             <SearchGlobal/>
             <div className="flex gap-2 items-center">
                 <ChatbotLink/>

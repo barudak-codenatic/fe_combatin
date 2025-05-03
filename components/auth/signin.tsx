@@ -29,7 +29,7 @@ export const SignInForm = () => {
             const data = await makeRequest(() => apiClient.post('/auth/signin', form));
             console.log(data)
             if(data) {
-                setUser({accessToken : data.accessToken, refreshToken : data.accessToken, name : data.name, email : data.email, userId : data.userId, userRole : data.userRole})
+                setUser({accessToken : data.accessToken, refreshToken : data.refreshToken, name : data.name, email : data.email, userId : data.userId, userRole : data.userRole})
             }
             formRef.current?.reset()
             await router.push('/module')

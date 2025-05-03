@@ -48,6 +48,12 @@ export const GlobalModals = () => {
         </Modal>
       )}
 
+      {modalType === "editModule" && (
+        <Modal isOpen={true} setIsOpen={closeModal}>
+          <AddModuleForm/>
+        </Modal>
+      )}
+
       {modalType === "addMaterial" && (
         <Modal isOpen={true} setIsOpen={closeModal}>
           <AddMaterialForm/>

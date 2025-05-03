@@ -14,7 +14,7 @@ const ModulesPage = () => {
     })
 
     return (
-        <div className="container mx-auto grid grid-cols-4 gap-3 mt-28">
+        <div className="max-w-7xl mx-auto grid grid-cols-4 gap-3 mt-28">
             {
                 data?.data.map(e=>(
                     <Link href={`/module/${e.id}`} key={e.id} className="h-64 flex flex-col rounded-lg p-3">
