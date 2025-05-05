@@ -60,7 +60,7 @@ export const AddMaterialForm = () => {
                 />
             <CustomInput 
                 type="area" 
-                title="Deskripsi"
+                title="Materi"
                 value={form.content}
                 handleChange={(e) => setForm({...form, content : e.target.value})}
                 />

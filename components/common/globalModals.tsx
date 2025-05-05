@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode } from "react";
 import { AddModuleForm } from "../forms/addModuleForm";
 import { AddMaterialForm } from "../forms/addMaterialForm";
+import { AddTestForm } from "../forms/addTestForm";
 
 interface ModalProps {
     isOpen: boolean;
@@ -62,8 +63,7 @@ export const GlobalModals = () => {
 
       {modalType === "addTes" && (
         <Modal isOpen={true} setIsOpen={closeModal}>
-          <h2 className="text-2xl font-bold mb-2">Tambah Tes</h2>
-          <p>Isi tes di sini.</p>
+          <AddTestForm/>
         </Modal>
       )}
     </>
