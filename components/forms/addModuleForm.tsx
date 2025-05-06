@@ -5,12 +5,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import useApiRequest from "@/hooks/useRequest";
 import apiClient from "@/services/apiService";
 import { useRouter } from "next/navigation";
-
-interface FormState {
-    img: File | null;
-    name: string;
-    description: string;
-  }
+import { ModuleForm } from "@/types";
 
 export const AddModuleForm = () => {
     const { loading, error, makeRequest, data } = useApiRequest<{message : string}, string>();
@@ -20,7 +15,7 @@ export const AddModuleForm = () => {
 
     const router = useRouter()
 
-    const [form, setForm] = useState<FormState>({
+    const [form, setForm] = useState<ModuleForm>({
         img : null,
         name : '',
         description : '',

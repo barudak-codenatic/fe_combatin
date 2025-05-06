@@ -5,6 +5,7 @@ export interface Modules extends TimeStamp {
     id : string;
     img_url? : string;
     name : string;
+    progress : Progress[] | [];
 }
 
 export interface Material extends TimeStamp {
@@ -15,6 +16,10 @@ export interface Material extends TimeStamp {
     module : {
         name : string
     }
+}
+
+export interface Progress extends TimeStamp {
+    progress : number;
 }
 
 export interface Test extends TimeStamp {
@@ -28,4 +33,10 @@ export interface Test extends TimeStamp {
 export interface Module extends Modules {
     materials : Material[];
     test : Material[];
+}
+
+export interface ModuleForm {
+    img: File | null;
+    name: string;
+    description: string;
 }

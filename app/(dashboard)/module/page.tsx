@@ -1,5 +1,6 @@
 "use client"
 
+import ProgressBar from "@/components/edu/progressBar"
 import { content } from "@/content"
 import apiClient from "@/services/apiService"
 import { Modules } from "@/types"
@@ -12,7 +13,7 @@ const ModulesPage = () => {
         queryKey : ['getAllModules'],
         queryFn : () => apiClient.get<Modules[]>('/modules')
     })
-
+    console.log(data)
     return (
         <div className="max-w-7xl mx-auto grid grid-cols-4 gap-3 mt-28">
             {
@@ -28,7 +29,9 @@ const ModulesPage = () => {
                         <div>
                             <h2>{e.name}</h2>
                             <p>{e.description}</p>
+                            <ProgressBar value={e.progress[0].progress}/>
                         </div>
+                        
                     </Link>
                 ))
             }
