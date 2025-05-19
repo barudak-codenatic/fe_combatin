@@ -8,10 +8,10 @@ interface button extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const CustomButton = ({ 
         title,
-        otherStyle="bg-red-500 hover:bg-red-700",
+        otherStyle,
         loading,
         ...otherProps
     } : button) => {
     if(loading) return <p>Loading</p>;
-    return <button {...otherProps} className={`rounded-full px-4 py-1 text-white font-semibold ${otherStyle}`}>{title}</button>
+    return <button {...otherProps} className={`rounded-full px-4 py-1 text-white font-semibold bg-red-500 hover:bg-red-700 ${otherStyle}`}>{title}</button>
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import ProgressBar from "@/components/edu/progressBar"
+import { ProgressBar } from "@/components/edu"
 import { content } from "@/content"
 import apiClient from "@/services/apiService"
 import { Modules } from "@/types"

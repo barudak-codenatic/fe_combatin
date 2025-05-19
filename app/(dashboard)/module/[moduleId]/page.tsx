@@ -2,8 +2,7 @@
 
 import Breadcrumb from "@/components/common/breadcrumb"
 import TooltipButton from "@/components/common/tooltip"
-import { CardLearning } from "@/components/edu"
-import ProgressBar from "@/components/edu/progressBar"
+import { CardLearning, ProgressBar } from "@/components/edu"
 import { useSplitPath } from "@/hooks"
 import useApiRequest from "@/hooks/useRequest"
 import apiClient from "@/services/apiService"

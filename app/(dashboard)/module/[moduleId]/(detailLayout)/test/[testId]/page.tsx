@@ -1,5 +1,7 @@
 'use client'
 
+import { CustomButton } from "@/components/common"
+import { StepProgress } from "@/components/edu"
 import { PoseDetection } from "@/components/edu/pose-detection"
 import { useSplitPath } from "@/hooks"
 import apiClient from "@/services/apiService"
@@ -33,14 +35,20 @@ const TestPage = () => {
                         <PoseDetection test={data.data}/>
                     </>:
                     <div>
-                        <h3>{data.data.title}</h3>
-                        <p>{data.data.description}</p>
-                        <div>
-                            {data.data.config.map((move, i)=>(
-                                <h4 key={i}>{move}</h4>
-                            ))}
+                        <h3 className="font-bold text-2xl">{data.data.title}</h3>
+                        <p className="text-lg my-2">{data.data.description}</p>
+                        <div className="my-10">
+                            <StepProgress
+                                steps={data.data.config}
+                                currentStep={data.data.config.length}
+                            />
                         </div>
-                        <button onClick={()=>setStart(true)}>Mulai</button>
+                        <div className="flex justify-center">
+                            <CustomButton
+                                title="Mulai"
+                                onClick={() => setStart(true)}
+                            />
+                        </div>
                     </div>
                 }
             </div>
