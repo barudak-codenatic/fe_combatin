@@ -154,7 +154,9 @@ const ModulePage = () => {
                                 <h2>{moduleData.name}</h2>
                                 <p>{moduleData.createdAt}</p>
                                 <p>{moduleData.updatedAt}</p>
-                                <ProgressBar value={moduleData.progress[0].progress}/>
+                                {moduleData.progress > 0?
+                                    <ProgressBar value={moduleData.progress[0].progress}/>:null
+                                }
                             </>
                         )}
                     </div>

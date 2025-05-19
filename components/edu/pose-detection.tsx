@@ -30,7 +30,7 @@ export const PoseDetection: React.FC<{test : Test|null|undefined}> = ({test}) =>
     const cameraRef = useRef<cameraUtils.Camera | null>(null);
 
     const [currentMoveIndex, setCurrentMoveIndex] = useState<number>(0);
-    const [gameStatus, setGameStatus] = useState<string>("ready"); // ready, playing, complete
+    const [gameStatus, setGameStatus] = useState<string>("ready"); 
 
     const [movement, setMovement] = useState(test?.config)
 

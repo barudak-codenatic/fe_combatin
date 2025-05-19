@@ -8,6 +8,10 @@ export interface Modules extends TimeStamp {
     progress : Progress[] | [];
 }
 
+interface Completed extends TimeStamp {
+    completed : boolean
+}
+
 export interface Material extends TimeStamp {
     title : string;
     content : string;
@@ -16,6 +20,7 @@ export interface Material extends TimeStamp {
     module : {
         name : string
     }
+    completed : Completed[]|[]
 }
 
 export interface Progress extends TimeStamp {
@@ -28,6 +33,7 @@ export interface Test extends TimeStamp {
     moduleId : string;
     config : string[];
     id : string;
+    completed : Completed[]|[]
 }
 
 export interface Module extends Modules {

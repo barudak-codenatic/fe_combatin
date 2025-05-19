@@ -29,7 +29,10 @@ const ModulesPage = () => {
                         <div>
                             <h2>{e.name}</h2>
                             <p>{e.description}</p>
-                            <ProgressBar value={e.progress[0].progress}/>
+                            {e.progress > 0?
+                                <ProgressBar value={e.progress[0].progress}/>:null
+                            }
+                            
                         </div>
                         
                     </Link>

@@ -10,7 +10,7 @@ const DetailLayout = ({
     return(
         <div className="grid grid-cols-[1fr_300px] gap-4 h-screen pt-28 max-w-7xl mx-auto">
             {/* Main content scrollable */}
-            <main className="overflow-y-auto pr-4 h-[80rem]">
+            <main className="overflow-y-auto pr-4">
                 {children}
             </main>
 

@@ -7,17 +7,20 @@ import { IoMdMore } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
 import useApiRequest from "@/hooks/useRequest";
 import apiClient from "@/services/apiService";
+import { IoCheckmark } from "react-icons/io5";
 
 interface CardLearningProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Material | Test;
   href: string;
   type: 'materials' | 'test';
+  isDone?: boolean;
 }
 
 export const CardLearning = ({
   data,
   href,
   type,
+  isDone=false,
   ...props
 }: CardLearningProps) => {
     const { loading : postLoading, error : postError, makeRequest, data : postData } = useApiRequest<{message : string}, string>();
@@ -36,11 +39,16 @@ export const CardLearning = ({
         className="relative w-full flex p-4 border-2 border-gray-400 rounded-lg"
         >
         <Link href={href} className={`flex items-center gap-2 w-full${props.className ?? ""}`}>
-            {type === 'materials' ? (
+            {type === 'materials' && !isDone ? (
             <FaBook size={25} />
-            ) : (
+            ) :
+            type === 'test' && !isDone ?
+            (
             <PiBoxingGloveFill size={25} />
-            )}
+            )
+            :
+            <IoCheckmark color="green" size={25} />
+        }
             <h4 className="text-nowrap truncate max-w-[80%]">{data.title}</h4>
         </Link>
 

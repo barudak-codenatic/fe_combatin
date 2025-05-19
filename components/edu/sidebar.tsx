@@ -40,6 +40,7 @@ export const SideBar = () => {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading module</div>;
     if (!data?.data) return <div>No module data available</div>;
+    console.log(data.data)
     
     return (
         <div className="flex flex-col">
@@ -53,6 +54,7 @@ export const SideBar = () => {
                                 key={material.id} 
                                 data={material} 
                                 href={`/module/${moduleId}/material/${material.id}`}
+                                isDone={material.completed.length > 0}
                                 // isActive={currentType === 'material' && currentItemId === material.id}
                             />
                         ))
@@ -69,6 +71,7 @@ export const SideBar = () => {
                                 key={test.id} 
                                 data={test} 
                                 href={`/module/${moduleId}/test/${test.id}`}
+                                isDone={test.completed.length > 0}
                                 // isActive={currentType === 'test' && currentItemId === test.id}
                             />
                         ))
