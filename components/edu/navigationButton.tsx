@@ -74,7 +74,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       <button
         onClick={handlePrevious}
         disabled={!previousItem}
-        className={`${!previousItem ? 'invisible' : ''} flex gap-2 items-center`}
+        className={`${!previousItem ? 'invisible' : ''} flex gap-2 items-center bg-red-600 text-white px-4 py-2 rounded-full font-bold hover:bg-red-700`}
       >
         <IoArrowBack className="w-4 h-4 mr-2" />
         Sebelumnya
@@ -83,7 +83,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       <button
         onClick={handleNext}
         disabled={!nextItem}
-        className={`${!nextItem ? 'invisible' : ''} flex gap-2 items-center`}
+        className={`${!nextItem ? 'invisible' : ''} flex gap-2 items-center bg-red-600 text-white px-4 py-2 rounded-full font-bold hover:bg-red-700`}
       >
         Selanjutnya
         <IoArrowForward className="w-4 h-4 ml-2" />

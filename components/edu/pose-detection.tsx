@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, Dispatch, SetStateAction } from "react";
 import Webcam from "react-webcam";
 import { Results as PoseResults, Landmark } from "@mediapipe/pose";
 import * as poseDetection from "@mediapipe/pose";
@@ -8,8 +8,9 @@ import * as cameraUtils from '@mediapipe/camera_utils';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import { LandmarkIndex } from "@/utils";
 import { Test } from "@/types";
-
-const CLASS_NAMES = ["block", "cross", "hook", "jab", "uppercut"]; 
+import { StepProgress } from "./progressBar";
+import useApiRequest from "@/hooks/useRequest";
+import apiClient from "@/services/apiService";
 
 const PREDICTION_API_URL = "http://localhost:5000/predict"; 
 
@@ -22,12 +23,14 @@ interface Prediction {
 
 // --- KOMPONEN REACT ---
 
-export const PoseDetection: React.FC<{test : Test|null|undefined}> = ({test}) => {
+export const PoseDetection: React.FC<{test : Test|null|undefined, setStart : Dispatch<SetStateAction<Boolean>>}> = ({test, setStart}) => {
     const webcamRef = useRef<Webcam>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [prediction, setPrediction] = useState<Prediction>({ class: "Loading...", probability: 0 });
     const poseRef = useRef<poseDetection.Pose | null>(null);
     const cameraRef = useRef<cameraUtils.Camera | null>(null);
+
+    const { loading : postLoading, error : postError, makeRequest, data : postData } = useApiRequest<{message : string}, string>();
 
     const [currentMoveIndex, setCurrentMoveIndex] = useState<number>(0);
     const [gameStatus, setGameStatus] = useState<string>("ready"); 
@@ -111,7 +114,7 @@ export const PoseDetection: React.FC<{test : Test|null|undefined}> = ({test}) =>
         pose.onResults(onResults);
         poseRef.current = pose;
         console.log("MediaPipe Pose initialized.");
-        setPrediction({ class: "Waiting for pose...", probability: 0 }); 
+        setPrediction({ class: "Menunggu Gerakan", probability: 0 }); 
 
         // Setup MediaPipe Camera
         if (webcamRef.current.video) {
@@ -192,9 +195,9 @@ export const PoseDetection: React.FC<{test : Test|null|undefined}> = ({test}) =>
 
         if (!areKeyLandmarksVisible)
         {
-            if (prediction.class !== "Waiting for Clear Pose") {
+            if (prediction.class !== "Menunggu Pose") {
                 console.log("Key landmarks not visible enough.");
-                setPrediction({ class: "Waiting for Clear Pose", probability: 0 });
+                setPrediction({ class: "Menunggu Pose", probability: 0 });
             }
 
             if (landmarks) {
@@ -264,9 +267,25 @@ export const PoseDetection: React.FC<{test : Test|null|undefined}> = ({test}) =>
         }
     },[prediction])
 
+    const doneTask = async () => {
+        try {
+            await makeRequest(() => apiClient.post(`/content-progress/${test?.id}`, {testId : test?.id, completed : true}));
+            setStart(false)
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(()=>{
+        if (gameStatus=='complete') {
+            doneTask()
+            setStart(false)
+        }
+    },[gameStatus])
+
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 font-sans">
-            <div className="relative w-[640px] h-[480px] border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden bg-black">
+        <div className="flex flex-col items-center justify-center font-sans">
+            <div className="relative w-full aspect-video border-2 rounded-lg shadow-lg overflow-hidden bg-black">
                 {/* Webcam */}
                 <Webcam
                     ref={webcamRef}
@@ -290,38 +309,25 @@ export const PoseDetection: React.FC<{test : Test|null|undefined}> = ({test}) =>
                 />
 
                 {/* API status indicator (opsional, ganti dari Socket status) */}
-                 <div className={`absolute top-2 right-2 px-2 py-1 rounded-md z-30 text-xs font-semibold
-                    ${apiStatus === 'Sending...' ? 'bg-yellow-500' : apiStatus.startsWith('Error') ? 'bg-red-500' : 'bg-blue-500'} text-white`}>
-                    API Status: {apiStatus}
-                 </div>
-            </div>
-
-            {/* Prediction display */}
-            <div className="mt-5 text-center p-4 bg-white rounded-lg shadow-md min-w-[320px] min-h-[110px] flex flex-col justify-center border border-gray-200">
-                <p className="text-sm text-gray-500 mb-1">Detected Boxing Move:</p>
-                 {prediction.error ? (
-                    <h3 className="text-xl font-bold text-red-600 mb-1">Error: {prediction.error}</h3>
-                 ) : prediction.message ? ( // Tampilkan pesan khusus seperti Invalid Pose Scale
-                     <h3 className="text-xl font-bold text-yellow-600 mb-1">{prediction.message}</h3>
-                 ) : ( 
-                     <>
-                        <h3 className="text-2xl font-bold text-blue-600 mb-1">{prediction.class}</h3>
-                        <p className="text-lg text-gray-700">
-                            Confidence:
-                            <span className="font-semibold ml-1">
-                                {prediction.probability > 0 ? `${(prediction.probability * 100).toFixed(1)}%` : '-'}
-                            </span>
-                        </p>
-                        <div className="flex gap-3">
-                            {movement?.map((move, i)=>(
-                                <p key={i}>{move}</p>
-                            ))}
+                 <div className={`absolute top-2 right-2 px-2 py-1 rounded-md z-30 text-xs font-semibold `}>
+                    {prediction.error ? (
+                        <h3 className="text-xl font-bold text-red-600 mb-1">Error: {prediction.error}</h3>
+                    ) : prediction.message ? ( // Tampilkan pesan khusus seperti Invalid Pose Scale
+                        <h3 className="text-xl font-bold text-yellow-600 mb-1">{prediction.message}</h3>
+                    ) : ( 
+                        <div className="bg-red-600 px-3 rounded-full py-1 flex gap-2 items-center">
+                            {prediction.probability > 0 ? <h3 className="text-xl text-white">{(prediction.probability * 100).toFixed(1)}%</h3> : null}
+                            <h3 className="text-xl font-bold text-white mb-1">{prediction.class}</h3>
                         </div>
-                        <p>{movement?movement[currentMoveIndex]:null}</p>
-                        <p>{currentMoveIndex}</p>
-                        <p>{gameStatus}</p>
-                     </>
-                 )}
+                    )}
+                 </div>
+                 <div className="absolute top-2 bottom-2 left-2 w-fit z-30 flex items-center">
+                    {movement&&<StepProgress
+                        steps={movement}
+                        currentStep={currentMoveIndex}
+                        direction="vertical"
+                    />}
+                 </div>
             </div>
         </div>
     );

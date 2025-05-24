@@ -16,7 +16,7 @@ interface BreadcrumbProps {
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ crumbs }) => {
   const router = useRouter()
   return (
-    <nav className="text-lg py-3" aria-label="Breadcrumb">
+    <nav className="text-lg py-3 border-b-[2px]" aria-label="Breadcrumb">
       <ol className="flex flex-wrap items-center">
       <li className="flex items-center gap-2 rounded-md py-1">
         <button

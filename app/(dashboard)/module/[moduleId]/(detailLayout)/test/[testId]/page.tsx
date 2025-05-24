@@ -30,9 +30,7 @@ const TestPage = () => {
                 </Head>
                 {isStart?
                     <>
-                        <h1>Pose Detection System</h1>
-                        <p>AI-powered pose detection based on your custom model</p>
-                        <PoseDetection test={data.data}/>
+                        <PoseDetection test={data.data} setStart={setStart}/>
                     </>:
                     <div>
                         <h3 className="font-bold text-2xl">{data.data.title}</h3>

@@ -36,9 +36,9 @@ export const CardLearning = ({
     return (
         <div 
         {...props}
-        className="relative w-full flex p-4 border-2 border-gray-400 rounded-lg"
+        className="relative w-full flex border-2 border-gray-300 rounded-lg"
         >
-        <Link href={href} className={`flex items-center gap-2 w-full${props.className ?? ""}`}>
+        <Link href={href} className={`flex items-center gap-2 h-full w-full block hover:bg-gray-300 p-4 ${props.className ?? ""}`}>
             {type === 'materials' && !isDone ? (
             <FaBook size={25} />
             ) :
@@ -54,7 +54,7 @@ export const CardLearning = ({
 
         <DropDown 
             trigger={
-            <IoMdMore className="w-6 h-6 cursor-pointer absolute inline-block right-0 top-0" />
+            <IoMdMore className="w-6 h-6 cursor-pointer absolute inline-block right-2" />
             }
         >
             <button onClick={()=>handleDelete(data.id)} className="flex w-full gap-2 hover:bg-gray-200 px-3 py-2 items-center">

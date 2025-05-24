@@ -59,8 +59,10 @@ const MaterialPage = () => {
     if (!isEdit) {
       const interval = setInterval(() => {
         const previewElement = document.querySelector('.w-md-editor-preview');
+        const editorElement = document.querySelector('.w-md-editor');
         if (previewElement) {
           previewElement.classList.remove('w-md-editor-preview');
+          editorElement.classList.remove('w-md-editor');
           clearInterval(interval);
         }
       }, 100); 
@@ -80,8 +82,8 @@ const MaterialPage = () => {
         ]}
       />
 
-      <form onSubmit={handleSubmit} className="space-y-4 bg-h-full">
-        <div className="flex">
+      <form onSubmit={handleSubmit} className="space-y-4 bg-h-full mt-4">
+        <div className={`flex ${!isEdit&&'border-b-[2px]'} pb-4`}>
           <input
             type="text"
             name="title"
